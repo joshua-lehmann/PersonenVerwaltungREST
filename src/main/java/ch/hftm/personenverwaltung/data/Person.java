@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +19,7 @@ public class Person {
     private String firstName;
     private String homeTown;
     private Date birthDate;
+
+    @OneToMany
+    List<Address> personAddresses;
 }

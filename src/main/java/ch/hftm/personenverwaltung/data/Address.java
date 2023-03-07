@@ -16,4 +16,6 @@ public class Address {
     Integer houseNumber;
     Date validFrom;
     Date validTo;
+    @OneToOne
+    City city;
 }
