@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_USER: demo_user
+      POSTGRES_PASSWORD: demo_user
+      POSTGRES_DB: demo_db
+    volumes:
+      - ./db/:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
