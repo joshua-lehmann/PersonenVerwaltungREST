@@ -20,6 +20,7 @@ public class Person {
     private String homeTown;
     private Date birthDate;
 
-    @OneToMany
-    List<Address> personAddresses;
+    @OneToMany(mappedBy = "person")
+    private List<Address> personAddresses;
+
 }

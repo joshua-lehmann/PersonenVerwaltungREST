@@ -16,6 +16,12 @@ public class Address {
     Integer houseNumber;
     Date validFrom;
     Date validTo;
-    @OneToOne
+    Boolean isCurrentAddress = false;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     City city;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    Person person;
 }
