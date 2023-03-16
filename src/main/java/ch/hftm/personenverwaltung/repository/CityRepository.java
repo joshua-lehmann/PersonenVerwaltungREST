@@ -8,7 +8,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "city", path = "city")
 public interface CityRepository extends PagingAndSortingRepository<City, Long>, CrudRepository<City, Long> {
 
     List<City> findByZipCode(@Param("zipCode") Integer zipCode);
