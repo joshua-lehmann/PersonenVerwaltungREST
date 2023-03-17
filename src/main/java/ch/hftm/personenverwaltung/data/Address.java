@@ -14,7 +14,9 @@ public class Address {
     Long id;
     String street;
     Integer houseNumber;
+    @Temporal(TemporalType.DATE)
     Date validFrom;
+    @Temporal(TemporalType.DATE)
     Date validTo;
     Boolean isCurrentAddress = false;
     @ManyToOne

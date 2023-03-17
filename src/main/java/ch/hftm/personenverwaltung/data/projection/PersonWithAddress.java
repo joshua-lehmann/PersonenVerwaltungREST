@@ -8,6 +8,8 @@ import java.util.List;
 
 @Projection(name = "personWithAddresses", types = { Person.class })
 public interface PersonWithAddress {
+    Integer getId();
+
     String getLastName();
     String getFirstName();
     String getHomeTown();

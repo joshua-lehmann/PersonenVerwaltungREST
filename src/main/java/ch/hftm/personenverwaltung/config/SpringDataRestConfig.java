@@ -13,7 +13,7 @@ public class SpringDataRestConfig
     public void configureRepositoryRestConfiguration(
             RepositoryRestConfiguration config, CorsRegistry cors) {
 
-        cors.addMapping("/**")
+        cors.addMapping("/**").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
                 .allowedOrigins("http://localhost:5173");
     }
 }
