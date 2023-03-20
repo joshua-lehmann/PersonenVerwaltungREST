@@ -1,11 +1,56 @@
 services:
   db:
     image: postgres:11.2-alpine
+    container_name: personen-verwaltung-db
     environment:
       POSTGRES_USER: demo_user
+      PGUSER: demo_user
       POSTGRES_PASSWORD: demo_password
       POSTGRES_DB: personen-verwaltung
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U demo_user -d personen-verwaltung"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     volumes:
       - ./db/:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - network-service
+      - network-db
+
+  db-gui:
+    container_name: personen-verwaltung-db-gui
+    image: dpage/pgadmin4:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./servers.json:/pgadmin4/servers.json
+    ports:
+      - "5050:80"
+    networks:
+      - network-db
+
+  api:
+    build: .
+    image: personen-verwaltung-api
+    container_name: personen-verwaltung-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - network-service
+
+networks:
+  network-service:
+  network-db:
+volumes:
+  pgdata:
